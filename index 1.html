@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Portal - HealthCare</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h2>HealthCare - Doctor Portal</h2>
+        <p>Welcome to your doctor account</p>
+    </header>
+
+    <div class="container">
+        <nav class="menu">
+            <button type="button" class="active" onclick="showPage('profile', this)">My Profile</button>
+            <button type="button" onclick="showPage('schedule', this)">Today's Schedule</button>
+            <button type="button" onclick="showPage('availability', this)">Manage Availability</button>
+            <button type="button" onclick="showPage('patients', this)">Patient History</button>
+            <button type="button" onclick="showPage('prescription', this)">Write Prescription</button>
+        </nav>
+
+        <section id="profile" class="page">
+            <h2>My Profile</h2>
+            <form id="profileForm" novalidate>
+                <div class="form-group">
+                    <label for="doctorName">Doctor Name</label>
+                    <input type="text" id="doctorName" value="Dr. Sarah Ahmed">
+                    <span class="error" id="doctorNameError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="doctorEmail">Email</label>
+                    <input type="text" id="doctorEmail" value="sarah@gmail.com">
+                    <span class="error" id="doctorEmailError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="doctorMobile">Mobile Number</label>
+                    <input type="text" id="doctorMobile" value="01712345678">
+                    <span class="error" id="doctorMobileError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="specialization">Specialization</label>
+                    <select id="specialization">
+                        <option value="">Select Specialization</option>
+                       
+                        <option value="Cardiology" >Cardiology</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="Medicine">Medicine</option>
+                        <option value="Orthopedics">Orthopedics</option>
+                    </select>
+                    <span class="error" id="specializationError"></span>
+                </div>
+                <button type="submit">Update Profile</button>
+            </form>
+            <p id="profileResult" class="result"></p>
+        </section>
+
+        <section id="schedule" class="page" style="display:none;">
+            <h2>Today's Schedule</h2>
+            <table>
+                <thead><tr><th>Token</th><th>Patient Name</th><th>Time</th><th>Reason</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>Rahim Ahmed</td><td>09:00 AM</td><td>Regular Checkup</td><td>Pending</td></tr>
+                    <tr><td>2</td><td>Karim Hasan</td><td>10:00 AM</td><td>Chest Pain</td><td>Pending</td></tr>
+                    <tr><td>3</td><td>Nusrat Jahan</td><td>11:00 AM</td><td>Follow-up</td><td>Completed</td></tr>
+                </tbody>
+            </table>
+            <p class="note">Sample appointments are shown for project demonstration.</p>
+        </section>
+
+        <section id="availability" class="page" style="display:none;">
+            <h2>Manage Availability</h2>
+            <form id="availabilityForm" novalidate>
+                <div class="form-group">
+                    <label>Available Days</label>
+                    <div class="options">
+                        <label><input type="checkbox" name="day" value="Saturday"> Saturday</label>
+                        <label><input type="checkbox" name="day" value="Sunday"> Sunday</label>
+                        <label><input type="checkbox" name="day" value="Monday"> Monday</label>
+                        <label><input type="checkbox" name="day" value="Tuesday"> Tuesday</label>
+                        <label><input type="checkbox" name="day" value="Wednesday"> Wednesday</label>
+                        <label><input type="checkbox" name="day" value="Thursday"> Thursday</label>
+                        <label><input type="checkbox" name="day" value="Friday"> Friday</label>
+                    </div>
+                    <span class="error" id="dayError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="startTime">Start Time</label>
+                    <input type="time" id="startTime" value="09:00">
+                    <span class="error" id="startTimeError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="endTime">End Time</label>
+                    <input type="time" id="endTime" value="14:00">
+                    <span class="error" id="endTimeError"></span>
+                </div>
+                <button type="submit">Save Availability</button>
+            </form>
+            <p id="availabilityResult" class="result"></p>
+            <p id="savedAvailability" class="info">Current availability: Saturday, Sunday, Monday | 09:00 - 14:00</p>
+        </section>
+
+        <section id="patients" class="page" style="display:none;">
+            <h2>Patient History</h2>
+            <div class="form-group">
+                <label for="patientSearch">Search Patient</label>
+                <input type="text" id="patientSearch" placeholder="Enter patient name">
+            </div>
+            <table>
+                <thead><tr><th>Patient Name</th><th>Age</th><th>Previous Visit</th><th>Action</th></tr></thead>
+                <tbody id="patientList">
+                    <tr><td>Rahim Ahmed</td><td>25</td><td>2026-10-10</td><td><button type="button" class="small-btn" onclick="viewHistory('Rahim Ahmed')">View History</button></td></tr>
+                    <tr><td>Karim Hasan</td><td>40</td><td>2026-09-05</td><td><button type="button" class="small-btn" onclick="viewHistory('Karim Hasan')">View History</button></td></tr>
+                    <tr><td>Nusrat Jahan</td><td>32</td><td>2026-08-15</td><td><button type="button" class="small-btn" onclick="viewHistory('Nusrat Jahan')">View History</button></td></tr>
+                </tbody>
+            </table>
+            <p id="historyResult" class="info">Select a patient to view their previous medical history.</p>
+        </section>
+
+        <section id="prescription" class="page" style="display:none;">
+            <h2>Write Prescription</h2>
+            <form id="prescriptionForm" novalidate>
+                <div class="form-group">
+                    <label for="presPatient">Patient Name</label>
+                    <select id="presPatient">
+                        <option value="">Select Patient</option>
+                        <option value="Rahim Ahmed">Rahim Ahmed</option>
+                        <option value="Karim Hasan">Karim Hasan</option>
+                        <option value="Nusrat Jahan">Nusrat Jahan</option>
+                    </select>
+                    <span class="error" id="presPatientError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="diagnosis">Diagnosis / Notes</label>
+                    <textarea id="diagnosis" rows="3" placeholder="Write diagnosis or notes"></textarea>
+                    <span class="error" id="diagnosisError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="medicine">Medicine Name</label>
+                    <input type="text" id="medicine" placeholder="Enter medicine name">
+                    <span class="error" id="medicineError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="dosage">Dosage</label>
+                    <input type="text" id="dosage" placeholder="Enter dosage">
+                    <span class="error" id="dosageError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="duration">Duration</label>
+                    <input type="text" id="duration" placeholder="Example: 5 days">
+                    <span class="error" id="durationError"></span>
+                </div>
+                <button type="submit">Generate Prescription</button>
+            </form>
+            <div id="prescriptionResult" class="result"></div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
